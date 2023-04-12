@@ -1,0 +1,131 @@
+/**
+ * 本页主要为定义全局变量使用，不要添加变量无关代码
+*/
+
+@prefix: cs-ui-;
+
+/* 
+ * 以下样式以各个项目中的 var.less 为准 
+ * 使用下面的import
+*/
+
+/* @import '@styles/var.less' */
+
+/**
+ * 以下为UI提供的色号
+ * UI 提供的色号不可以直接使用，在下面**使用区域**引用UI色号变量
+ * 当 UI 色号修改前，确定后面定义的使用场景是否同时更改！！
+ */
+
+/* 状态色 */
+
+/* 警示、提醒 rgba(248, 162, 49, 1) */
+@warn: #f8a231;
+
+/* 危险、错误 rgba(237, 85, 85, 1) */
+@danger: #ed5555;
+
+/* 主要应用于标签，表示完成状态 */
+@info: #3491fa;
+
+/* 主要应用于重点数字、标题、重要信息、主要文字颜色  之前是 #333  rgba(52, 58, 64, 1) */
+@mainDark: #343a40;
+
+/* 主要应用于常规信息、次要文字、导航icon颜色、 之前是 #666 rgba(108, 117, 125, 1) */
+@secondDark: #6c757d;
+
+/* 辅助色、按钮icon颜色 之前是 #999 rgba(153, 158, 164, 1) */
+@thirdDark: #999ea4;
+
+/* 主要应用于弹窗背景蒙层，#000000不透明度60% */
+@transparentDark: rgba(0, 0, 0, 0.6);
+
+/* 主要应用于背景色、表格及控件悬停颜色 rgba(247, 248, 249, 1) */
+@lightGray: #f7f8f9;
+
+/* 分割线 rgba(235, 237, 240, 1) */
+@lineGray: #ebedf0;
+
+/* 禁用  rgba(218, 221, 224, 1) */
+@disableGray: #dadde0;
+
+/* 控件边框 rgba(210, 214, 218, 1) */
+@borderGray: #d2d6da;
+
+/* 主要应用于控件占位文字、禁用颜色 */
+@disabledColor: #b5b8bb;
+
+/* 主要应用于控件禁用颜色 */
+@disableComponent: #f5f5f5;
+
+@white: #fff;
+
+@Tagground: rgba(12, 191, 159, 0.06);
+@TagBlurGround: rgba(52, 145, 250, 0.06);
+@TagRedGround: rgba(237, 85, 85, 0.06);
+@TagOrangeGround: rgba(248, 162, 49, 0.06);
+
+/**
+ * 以下为正常使用的色号
+ * 根据使用场景不同，定义不同的变量名
+*/
+
+/* 主色调  rgba(12, 191, 159, 1) */
+@primary-color: #0cbf9f;
+@dangerTextColor: @danger;
+@dangerBg: @danger;
+@border-radius-base: 4px;
+@border-color-base: @borderGray;
+@input-placeholder-color: @disabledColor;
+@btn-padding-horizontal-base: 12px;
+@select-item-selected-color: rgba(12, 191, 159, 0.06);
+
+@whiteBg: @white;
+@backgroudGray: @lightGray;
+// solid颜色
+@solidBg: @lineGray;
+
+// 全局文字颜色 主色 之前是 #333
+@text-color: @mainDark;
+@text-color-secondary: @thirdDark;
+// 之前是 #666 目前不知道变量名字是什么，暂时先用这个，以后可以批量替换
+@text-color-2: @secondDark;
+// 表单编辑状态下的背景样式,
+@read-only-bg: @lightGray;
+
+// menu
+@menu-item-vertical-margin: 6px;
+// 这条不生效。。。
+@menu-highlight-danger-color: @white;
+@menu-item-active-bg: @primary-color;
+@select-item-selected-color: rgba(12, 191, 159, 0.06);
+
+// sidebar
+@sideBarWidth: 180px;
+@sideBarCloseWidth: 80px;
+
+/** 主展示区padding */
+@mainViewPadding: 16px;
+@mainViewPaddingRight: 26px;
+
+// header
+@headerHeight: 50px;
+
+/* 全局表单提交框高度 */
+@GlobaFormActionsHeight: 60px;
+
+@menuDarkColor: #001529;
+
+@menuText: #bfcbd9;
+@menuActiveText: #409eff;
+@subMenuActiveText: #f4f4f5; // https://github.com/ElemeFE/element/issues/12951
+
+@menuBg: #304156;
+@menuHover: #263445;
+
+@subMenuBg: #1f2d3d;
+@subMenuHover: #001528;
+
+@readOnlyInputStyle: @lightGray;
+
+@baseFontSize: 17.2px; //基于视觉稿横屏尺寸/100得出的基准font-size
