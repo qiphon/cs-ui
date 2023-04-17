@@ -4,7 +4,8 @@ import React, { type FC } from 'react';
 
 import './index.less';
 import { CommonType } from '../types';
-import { addClassNamePrefix } from '../utils';
+
+import { addClassNamePrefix } from '@utils/index';
 
 export type Props = {
   /**
@@ -30,6 +31,7 @@ export const EmptyLoading: FC<Props> = ({
         addClassNamePrefix('emptyLoadingWrapper'),
         className,
       )}
+      aria-label="EmptyLoading"
       style={{ ...(style ?? {}) }}
     >
       <Spin {...spinProps} size={size ?? 'large'} />

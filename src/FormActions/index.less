@@ -1,0 +1,26 @@
+@import '../styles/var.less';
+
+.@{prefix}formActionsWrapper {
+  background-color: @whiteBg;
+  height: @GlobaFormActionsHeight;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 14px 16px;
+  box-shadow: 0 -1px 2px 0 rgb(0 0 0 / 3%);
+  z-index: 9;
+  transition: all 0.2s;
+
+  &.center {
+    justify-content: center;
+  }
+
+  .button {
+    margin-left: 20px;
+    padding: 0 20px;
+    height: 31px;
+  }
+}

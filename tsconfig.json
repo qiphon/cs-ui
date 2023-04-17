@@ -8,8 +8,10 @@
     "baseUrl": "./",
     "paths": {
       "@@/*": [".dumi/tmp/*"],
-      "cs-ui": ["src"],
-      "cs-ui/*": ["src/*", "*"]
+      "cs-ui": ["./src"],
+      "cs-ui/*": ["./src/*", "*"],
+      "@styles/*": ["./src/styles/*", "*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": [".dumi/**/*", ".dumirc.ts", "src/**/*"]
