@@ -1,8 +1,5 @@
 # cs-ui
 
-[![NPM version](https://img.shields.io/npm/v/cs-ui.svg?style=flat)](https://npmjs.org/package/cs-ui)
-[![NPM downloads](http://img.shields.io/npm/dm/cs-ui.svg?style=flat)](https://npmjs.org/package/cs-ui)
-
 cs ui component
 
 ## Usage
