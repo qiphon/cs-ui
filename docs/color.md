@@ -1,4 +1,8 @@
-# color
+---
+title: color & text
+---
+
+# color & text
 
 色版
 
@@ -104,3 +108,24 @@
 - <font color="#5EAFFF" style="font-weight: 900;">扩展色 #5EAFFF</font>
 - <font color="#93ACFF" style="font-weight: 900;">扩展色 #93ACFF</font>
 - <font color="#EFEFEF" style="font-weight: 900;">扩展色 #EFEFEF</font>
+
+# text
+
+- 优先使用各系统的自带字体，以保证友好的阅读体验。
+- 中文字体：PingFang SC，英文/数字字体：HarmonyOS Sans。
+- 字重为 Regular （font-weight：400）和 Bold（font-weight：600） 两种。
+
+```css
+.enFont {
+  font-family: 'HarmonyOS_Sans';
+}
+
+.boldFont {
+  font-weight: 500;
+  font-family: PingFangSC-Medium, SourceHanSansSC-Medium;
+}
+
+* {
+  font-family: PingFangSC-Regular, SourceHanSansSC-Regular;
+}
+```
