@@ -28,6 +28,7 @@ export default defineConfig({
   lessLoader: {
     modifyVars: {
       '@primary-color': '#0cbf9f',
+      '@border-radius-base': '4px',
     },
     javascriptEnabled: true,
   },

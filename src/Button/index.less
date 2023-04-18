@@ -1,0 +1,87 @@
+@import '../styles/var.less';
+
+.@{prefix}ButtonWrapper {
+  min-width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease 0.3s;
+
+  .borderBgMix(@color, @bg) {
+    border-color: @color;
+    background: @bg;
+  }
+
+  &.small {
+    padding: 2px 12px;
+  }
+
+  &.middle {
+    padding: 5px 12px;
+  }
+
+  &.large {
+    padding: 8px 12px;
+  }
+
+  &.primary {
+    color: @white-color;
+
+    &:active {
+      .borderBgMix(@success-click-color,@success-click-color);
+
+      outline: 2px solid rgb(7 193 96 / 20%);
+    }
+
+    &.loading {
+      .borderBgMix(@success-loading-color,@success-loading-color);
+    }
+
+    &[disabled] {
+      .borderBgMix(@success-disabled-color,@success-disabled-color);
+
+      &:hover {
+        color: @white-color;
+      }
+    }
+  }
+
+  &.ghost,
+  &.default {
+    .borderBgMix(@default-border, @white-bg);
+
+    &:hover {
+      .borderBgMix(@primary-color, @white-bg);
+    }
+
+    &[disabled] {
+      color: @disabled-color;
+
+      .borderBgMix(@default-border, @disabled-bg);
+
+      &:hover {
+        .borderBgMix(@default-border, @disabled-bg);
+      }
+    }
+
+    &.loading {
+      .borderBgMix(@primary-color,@white-bg);
+    }
+  }
+
+  .loadingIcon {
+    display: block;
+    height: 100%;
+    animation: rotate linear 1s infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

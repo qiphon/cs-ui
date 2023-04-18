@@ -15,7 +15,33 @@
  * 以下为UI提供的色号
  * UI 提供的色号不可以直接使用，在下面**使用区域**引用UI色号变量
  * 当 UI 色号修改前，确定后面定义的使用场景是否同时更改！！
+  - 品牌颜色为「碳云绿」，因此SaaS碳云整体配色风格也是基于「碳云绿」展开。
+  - 主题色：主要应用于导航及页面的关键点，重要使用控件、重要信息高亮等明确着重表达的位置。
+  - 灰度色：主要应用于导航框架、背景底色、描边、或次级操作等场景。
+  - 状态色：主要应用于消息通知、反馈提醒、表单校验这类场景中的成功、失败、提醒、链接等状态。
  */
+
+/* 主色调  rgba(12, 191, 159, 1) */
+@primary-color: #0cbf9f;
+
+@success-color: @primary-color;
+@success-hover-color: #2dccaa;
+@success-click-color: #09b294;
+@success-loading-color: #aaf2db;
+@success-disabled-color: #7ce6c8;
+@success-outline-color: rgb(7 193 96 / 20%);
+
+@default-border: #d2d6da;
+
+/* 主要应用于控件占位文字、禁用颜色 */
+@disabled-color: #b5b8bb;
+@disabled-bg: #f5f5f5;
+
+@white: #fff;
+@white-color: @white;
+@white-bg: @white;
+
+/* 暂时不用 -------start-------- **/
 
 /* 状态色 */
 
@@ -52,9 +78,6 @@
 /* 控件边框 rgba(210, 214, 218, 1) */
 @borderGray: #d2d6da;
 
-/* 主要应用于控件占位文字、禁用颜色 */
-@disabledColor: #b5b8bb;
-
 /* 主要应用于控件禁用颜色 */
 @disableComponent: #f5f5f5;
 
@@ -70,13 +93,11 @@
  * 根据使用场景不同，定义不同的变量名
 */
 
-/* 主色调  rgba(12, 191, 159, 1) */
-@primary-color: #0cbf9f;
 @dangerTextColor: @danger;
 @dangerBg: @danger;
 @border-radius-base: 4px;
 @border-color-base: @borderGray;
-@input-placeholder-color: @disabledColor;
+@input-placeholder-color: @disabled-color;
 @btn-padding-horizontal-base: 12px;
 @select-item-selected-color: rgba(12, 191, 159, 0.06);
 
@@ -128,4 +149,18 @@
 
 @readOnlyInputStyle: @lightGray;
 
+/* 暂时不用 -------end-------- **/
 @baseFontSize: 17.2px; //基于视觉稿横屏尺寸/100得出的基准font-size
+
+.enFont {
+  font-family: 'HarmonyOS_Sans';
+}
+
+.boldFont {
+  font-weight: 500;
+  font-family: PingFangSC-Medium, SourceHanSansSC-Medium;
+}
+
+* {
+  font-family: PingFangSC-Regular, SourceHanSansSC-Regular;
+}
