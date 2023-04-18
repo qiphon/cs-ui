@@ -14,6 +14,10 @@
 
 ### UI 库详情
 
+vscode 工具
+
+- [ts in markdown](https://github.com/Amour1688/vscode-ts-in-markdown)
+
 主要依赖
 
 - [Dumi](https://d.umijs.org/guide/auto-api-table)
