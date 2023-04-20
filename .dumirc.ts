@@ -29,6 +29,13 @@ export default defineConfig({
     modifyVars: {
       '@primary-color': '#0cbf9f',
       '@border-radius-base': '4px',
+      '@text-color': '#343A40',
+      '@text-color-secondary': '#999EA4',
+      '@border-color-base': '#d2d6da',
+      '@input-placeholder-color': '#b5b8bb',
+      '@btn-primary-shadow': 'none',
+      '@btn-padding-horizontal-base': '12px',
+      '@table-row-hover-bg': '#f0fbf9',
     },
     javascriptEnabled: true,
   },
