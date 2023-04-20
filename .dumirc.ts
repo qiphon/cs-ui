@@ -16,6 +16,20 @@ export default defineConfig({
   outputPath: 'build',
   themeConfig: {
     name: 'cs-ui',
+    nav: [
+      {
+        title: '项目说明',
+        link: '/guide',
+      },
+      {
+        title: '文字&颜色',
+        link: '/color',
+      },
+      {
+        title: '组件',
+        link: '/uis',
+      },
+    ],
   },
   // autoAlias: true,
   alias: Object.entries(tsConfig.compilerOptions.paths).reduce((tmp, next) => {
@@ -49,4 +63,5 @@ export default defineConfig({
       },
     ],
   ],
+  codeSplitting: { jsStrategy: 'granularChunks' },
 });
