@@ -1,11 +1,14 @@
-import { Spin, SpinProps } from 'antd';
+/**
+ * @description 空白占位符
+ */
+import { addClassNamePrefix } from '@utils/index';
 import classnames from 'classnames';
 import React, { type FC } from 'react';
 
+import { Spin, SpinProps } from '../Spin';
+
 import './index.less';
 import { CommonType } from '../types';
-
-import { addClassNamePrefix } from '@utils/index';
 
 export type Props = {
   /**
