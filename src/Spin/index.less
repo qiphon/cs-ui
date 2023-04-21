@@ -1,0 +1,53 @@
+@import '../styles/var.less';
+
+.@{prefix}spin {
+  .spinShower:extend(.flex-row-center) {
+    transform: translate3d(-50%, -50%, 0);
+    margin: 0;
+    width: auto;
+    height: auto;
+
+    &.tip-place-bottom {
+      flex-flow: column;
+
+      .loadingMsg {
+        margin: 10px 0 0;
+      }
+    }
+
+    img.loadingIcon {
+      margin: 0;
+      position: initial;
+      animation: rotate 0.7s linear infinite;
+    }
+
+    .loadingMsg {
+      color: @dark2;
+      margin-left: 10px;
+    }
+
+    &.default .loadingMsg {
+      font-size: 14px;
+    }
+
+    &.small .loadingMsg {
+      font-size: 12px;
+    }
+
+    &.large .loadingMsg {
+      font-size: 18px;
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+    transform-origin: 50%;
+  }
+
+  to {
+    transform: rotate(360deg);
+    transform-origin: 50%;
+  }
+}

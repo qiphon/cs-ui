@@ -1,4 +1,5 @@
 module.exports = {
+  extends: require.resolve('@umijs/lint/dist/config/eslint'),
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx', '.js', '.jsx'],
@@ -41,5 +42,4 @@ module.exports = {
       },
     ],
   },
-  extends: require.resolve('@umijs/lint/dist/config/eslint'),
 };
