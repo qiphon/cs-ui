@@ -21,7 +21,7 @@
   - 状态色：主要应用于消息通知、反馈提醒、表单校验这类场景中的成功、失败、提醒、链接等状态。
  */
 
-/* 主色调  rgba(12, 191, 159, 1) */
+/* 主色调  rgba(12, 191, 159, 1)  antd overide */
 @primary-color: #0cbf9f;
 
 /** 灰度色 */
@@ -53,6 +53,7 @@
 @whiteColor: @white;
 @whiteBg: @white;
 
+/** antd overide */
 @text-color: @dark1;
 @text-color-secondary: @dark3;
 
@@ -61,6 +62,14 @@
 
 /** formAction 高度 */
 @GlobaFormActionsHeight: 60px;
+
+/** antd overide */
+@border-radius-base: 4px;
+@border-radius-modal: 8px;
+@btn-padding-horizontal-base: 12px;
+@table-row-hover-bg: @success-active-bg;
+@input-placeholder-color: @disabled-color;
+@border-color-base: @default-border;
 
 .enFont {
   font-family: 'HarmonyOS_Sans';
