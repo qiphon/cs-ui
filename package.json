@@ -2,6 +2,7 @@
   "name": "@qiphon/cs-ui",
   "version": "0.0.2",
   "description": "cs ui component",
+  "homepage": "https://cs-ui.qifeng.site",
   "license": "MIT",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
