@@ -1,6 +1,6 @@
 {
-  "name": "cs-ui",
-  "version": "0.0.1",
+  "name": "@qiphon/cs-ui",
+  "version": "0.0.2",
   "description": "cs ui component",
   "license": "MIT",
   "module": "dist/index.js",
@@ -10,17 +10,17 @@
   ],
   "scripts": {
     "build": "father build",
-    "postbuild": "npm run docs:build",
     "build:watch": "father dev",
     "dev": "dumi dev",
+    "doc": "npm run docs:build",
     "docs:build": "dumi build",
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-    "prepare": "husky install && dumi setup",
-    "prepublishOnly": "father doctor && npm run build",
-    "start": "npm run dev"
+    "postinstalls": "npm run prepares",
+    "prepares": "husky install && dumi setup",
+    "prepublishOnly": " npm run build"
   },
   "commitlint": {
     "extends": [
@@ -45,8 +45,8 @@
     ]
   },
   "dependencies": {
-    "antd": "4",
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.2",
+    "table-render": "^2.0.14"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -73,6 +73,7 @@
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
+    "antd": "4",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   },
