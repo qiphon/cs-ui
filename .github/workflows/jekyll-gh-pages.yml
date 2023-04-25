@@ -64,9 +64,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/pnpm-lock.yaml') }}-
       - name: Install dependencies
-        run: pnpm install 
+        run: npm install 
       - name: Build with Next.js
-        run: pnpm run build:doc
+        run: npm run build:doc
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
