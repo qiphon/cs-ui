@@ -47,6 +47,8 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+      - name: install package
+        run: npm install
       - name: Build docs
         run: npm run docs:build
       - name: node prepare 
