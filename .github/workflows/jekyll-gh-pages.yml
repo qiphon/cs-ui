@@ -48,7 +48,7 @@ jobs:
             exit 1
           fi
       - name: Build docs
-        run: npm run build:doc
+        run: npm run docs:build
       - name: node prepare 
         uses: actions/setup-node@v3
         with:
