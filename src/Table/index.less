@@ -1,0 +1,124 @@
+@import '../styles/var.less';
+
+.@{prefix}tableWrapper {
+  @tableGap: 16px;
+  .flex-col();
+
+  flex: 1 1 100%;
+  height: 100%;
+  background-color: @whiteBg;
+  padding: @tableGap @tableGap 11px;
+
+  > div {
+    .flex-col();
+
+    flex: 1 1 auto;
+    overflow: auto;
+  }
+
+  /** 顶部 标题 & 自定义按钮等 */
+  .tableTop:extend(.flex-row-between-start) {
+    margin-bottom: @tableGap;
+    flex: 0 0 auto;
+    h3:extend(.boldFont) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  /* table 主体样式修改 */
+  .@{prefix}table {
+    padding: 0;
+    .flex-col();
+
+    .ant-table-wrapper {
+      flex: 0 1 auto;
+      display: flex;
+      overflow: hidden;
+
+      .ant-spin-nested-loading,
+      .ant-spin-container,
+      .ant-table,
+      .ant-table-container {
+        .flex-col();
+
+        flex: 1 1 auto;
+        overflow: hidden;
+      }
+
+      .ant-table-header {
+        flex: 0 0 auto;
+      }
+    }
+
+    .tr-toolbar-nohead {
+      height: auto;
+    }
+
+    /* 去除表头分割线 */
+    .ant-table-thead
+      > tr
+      > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+      display: none;
+    }
+
+    /** 去除表头 border */
+    .ant-table-thead > tr > th {
+      border: none;
+    }
+
+    /** 修改表格高度 */
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td,
+    .ant-table tfoot > tr > th,
+    .ant-table tfoot > tr > td {
+      padding: 13px;
+    }
+  }
+
+  /** 搜索 覆盖 */
+  .tableSearch {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+
+    /** 调整搜索框间距 */
+    .fr-form {
+      > .ant-row {
+        > .ant-col {
+          margin-bottom: @tableGap;
+        }
+      }
+    }
+
+    /** overide 原来搜索布局 */
+    &.fr-search .search-action-col {
+      height: auto;
+      flex: 0;
+      min-width: auto !important;
+    }
+  }
+
+  /* 分页修改 */
+  .tablePagination {
+    margin-bottom: 0;
+
+    .ant-pagination-total-text {
+      margin-right: 12px;
+    }
+
+    .ant-pagination-item {
+      border: none;
+    }
+
+    .ant-pagination-item-active {
+      background-color: @success-active-bg;
+    }
+  }
+
+  .paginationTotal {
+    line-height: 21px;
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
