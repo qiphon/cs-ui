@@ -121,6 +121,106 @@ export default () => {
 };
 ```
 
+### search 上面插槽
+
+```tsx
+import React, { useRef, useEffect } from 'react';
+import { Table, Button, Ellipsis } from 'cs-ui';
+import { xRenderSeachSchema } from 'cs-ui/Table/utils';
+
+export default () => {
+  const getData = (size, total) => ({
+    data: new Array(size).fill(1).map((v, k) => {
+      return {
+        realName: k + 'realname' + String(Math.random()).slice(-3),
+        mobile: k + 'mobile' + String(Math.random()).slice(-3),
+        orgNames: k + 'orgNames' + String(Math.random()).slice(-3),
+        roleNames: k + 'roleNames' + String(Math.random()).slice(-3),
+        updateByName: k + 'updateByName' + String(Math.random()).slice(-3),
+        updateTime: k + 'updateTime' + String(Math.random()).slice(-3),
+      };
+    }),
+    total: 0 || size,
+  });
+  const api = ({ current: page, pageSize }) => {
+    if (page === 1) {
+      return Promise.resolve(getData(0, 0));
+    }
+    return new Promise((r) => {
+      setTimeout(() => r(getData(0, 0)), 3000);
+    });
+  };
+  // const tableRef = useRef<TableRef | null>(null);
+
+  return (
+    <div style={{ padding: 10, background: 'red', height: 500 }}>
+      <Table
+        topRender={{
+          left: '用户列 表',
+          right: (
+            <div className="flex-row-between-center">
+              <Button>自定义1</Button>
+              <Button>2</Button>
+            </div>
+          ),
+        }}
+        searchTopRender={
+          <div style={{ background: '#adf' }}> 我是顶部插槽</div>
+        }
+        search={{
+          // hidden: true,
+          schema: {
+            type: 'object',
+            properties: {
+              likeUserInfo: xRenderSeachSchema({
+                type: 'string',
+                placeholder: '请输入用户名/姓名/手机号',
+              }),
+              sdfsdf: xRenderSeachSchema({
+                type: 'string',
+                placeholder: '请输入用户名/姓名/手机号',
+              }),
+            },
+          },
+        }}
+        request={api}
+        columns={[
+          {
+            title: '姓名',
+            dataIndex: 'realName',
+          },
+          {
+            title: '手机号',
+            dataIndex: 'mobile',
+          },
+          {
+            title: '所属组织',
+            dataIndex: 'orgNames',
+          },
+          {
+            title: '角色',
+            dataIndex: 'roleNames',
+          },
+
+          {
+            title: '更新人',
+            dataIndex: 'updateByName',
+            render(t) {
+              return <Ellipsis text={t}></Ellipsis>;
+            },
+          },
+          {
+            title: '更新时间',
+            dataIndex: 'updateTime',
+            width: 200,
+          },
+        ]}
+      />
+    </div>
+  );
+};
+```
+
 ### 通用型
 
 ```tsx

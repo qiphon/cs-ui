@@ -1,3 +1,10 @@
+/*
+ * @@description:
+ * @Author: qifeng qifeng@carbonstop.net
+ * @Date: 2023-04-25 14:29:09
+ * @LastEditors: qifeng qifeng@carbonstop.net
+ * @LastEditTime: 2023-04-25 14:31:35
+ */
 import { SearchProps } from 'table-render';
 
 /**
@@ -6,17 +13,15 @@ import { SearchProps } from 'table-render';
  */
 export const xRenderSeachSchema = <RecordType = any,>(
   properties: SearchProps<RecordType>['schema'],
-): SearchProps<RecordType>['schema'] => {
-  return {
-    width: 240,
-    /** 作用于列的样式，类型里没有暴露这个 */
-    // @ts-ignore
-    style: {
-      paddingRight: 20,
-    },
-    ...properties,
-  };
-};
+): SearchProps<RecordType>['schema'] => ({
+  width: 240,
+  /** 作用于列的样式，类型里没有暴露这个 */
+  // @ts-ignore
+  style: {
+    paddingRight: 20,
+  },
+  ...properties,
+});
 
 export const defaultSchema = {
   type: 'object',
