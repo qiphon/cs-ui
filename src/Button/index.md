@@ -89,6 +89,7 @@ export default () => {
 
 ```jsx
 import { Button } from 'cs-ui';
+import { ConfigProvider } from 'antd';
 
 export default () => {
   return (
@@ -117,8 +118,17 @@ export default () => {
       </div>
       <div style={{ marginTop: 20 }}>
         <Button type="primary" size="small">
-          12
+          新增
         </Button>
+      </div>
+      <div style={{ marginTop: 20 }}>
+        去除文字间空格方法，每个项目里应该都有封装类似的东西，不要自己写
+        ConfigProvider
+        <ConfigProvider autoInsertSpaceInButton={false}>
+          <Button type="primary" size="small">
+            新增
+          </Button>
+        </ConfigProvider>
       </div>
     </div>
   );
