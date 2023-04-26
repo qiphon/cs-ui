@@ -115,6 +115,11 @@ export default () => {
           small 点击看loading
         </Button>
       </div>
+      <div style={{ marginTop: 20 }}>
+        <Button type="primary" size="small">
+          12
+        </Button>
+      </div>
     </div>
   );
 };
