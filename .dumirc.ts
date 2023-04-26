@@ -50,6 +50,7 @@ export default defineConfig({
       '@btn-primary-shadow': 'none',
       '@btn-padding-horizontal-base': '12px',
       '@table-row-hover-bg': '#f0fbf9',
+      '@heading-color': '#343a40',
     },
     javascriptEnabled: true,
   },
@@ -64,4 +65,11 @@ export default defineConfig({
     ],
   ],
   codeSplitting: { jsStrategy: 'granularChunks' },
+  svgo: {
+    datauri: 'unenc',
+  },
+  // chainWebpack(memo, args) {
+  //   console.log(memo.module.rule);
+  //   return memo;
+  // },
 });
