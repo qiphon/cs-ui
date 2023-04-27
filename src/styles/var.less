@@ -35,6 +35,9 @@
 /* 辅助色、按钮icon颜色 之前是 #999 rgba(153, 158, 164, 1) */
 @dark3: #999ea4;
 
+/** 分割线颜色 #EBEDF0 */
+@dark4: #ebedf0;
+
 @success-color: @primary-color;
 @success-hover-color: #2dccaa;
 @success-click-color: #09b294;
@@ -53,6 +56,9 @@
 @whiteColor: @white;
 @whiteBg: @white;
 
+/** 分割线颜色 */
+@divedeLineColor: @dark4;
+
 /** antd overide */
 @text-color: @dark1;
 @text-color-secondary: @dark3;
@@ -70,6 +76,7 @@
 @table-row-hover-bg: @success-active-bg;
 @input-placeholder-color: @disabled-color;
 @border-color-base: @default-border;
+@heading-color: @dark1;
 
 .enFont {
   font-family: 'HarmonyOS_Sans';
@@ -142,6 +149,9 @@
 
 /* stylelint-disable-next-line block-no-empty */
 .flex-row-center:extend(.flex-row, .justify-center, .items-center) {
+}
+.flex-row-start-center:extend(.flex-row, .items-center) {
+  justify-content: flex-start;
 }
 /* stylelint-disable-next-line block-no-empty */
 .flex-row-between-center:extend(.flex-row, .justify-between, .items-center) {

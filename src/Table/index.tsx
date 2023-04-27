@@ -3,7 +3,7 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-04-26 10:36:03
+ * @LastEditTime: 2023-04-26 20:43:26
  */
 import { TablePaginationConfig } from 'antd';
 import classNames from 'classnames';
@@ -24,21 +24,21 @@ import './index.less';
 import { SearchApi } from 'table-render/dist/src/types';
 
 import { TableProps, TableRef } from './types';
-import { defaultSchema } from './utils';
-import loadingIcon from '../assets/svgs/loading-16-16@2x.png';
+import { defaultSchema, useModifyColumns } from './utils';
 
 const XTable: ForwardRefExoticComponent<
   PropsWithoutRef<TableProps<any>> & RefAttributes<TableRef>
 > = forwardRef(
   (
-    { userSearch, topRender, useSearchParams, searchTopRender, ...props },
+    { userSearch, topRender, isCacheSearchInUrl, searchTopRender, ...props },
     ref,
   ) => {
-    const { pagination, search, columns, request } = props;
-    const cacheUserSearch = React.useRef<Record<string, any>>(getSearch());
-    // const [cacheUserSearch, setCacheUserSearch] = useState<Record<string, any>>(
-    //   getSearch(),
-    // );
+    const { pagination, search, request } = props;
+    // 自定义搜索参数
+    const cacheUserSearch = React.useRef<Record<string, any>>(
+      Object.is(false, isCacheSearchInUrl) ? {} : getSearch(),
+    );
+
     const form = useRef();
     const tableRef = useRef<TableRef>();
     // 分页信息
@@ -56,7 +56,7 @@ const XTable: ForwardRefExoticComponent<
       ...(pagination || {}),
     });
     const cacheSeach = (search?: Record<string, any>) => {
-      if (Object.is(useSearchParams, false)) {
+      if (Object.is(isCacheSearchInUrl, false)) {
         return {};
       }
       cacheUserSearch.current = { ...cacheUserSearch.current, ...search };
@@ -116,6 +116,8 @@ const XTable: ForwardRefExoticComponent<
       }));
     }
 
+    const newColumns = useModifyColumns(props.columns, { cacheUserSearch });
+
     return (
       <div className={addClassNamePrefix('tableWrapper')}>
         {!!topRender && (
@@ -136,21 +138,22 @@ const XTable: ForwardRefExoticComponent<
         <TableRender
           rowKey="id"
           {...props}
-          loading={{
-            indicator: (
-              <div className={classNames('spinShower ')}>
-                <img
-                  src={loadingIcon}
-                  className="loadingIcon ant-spin-dot"
-                  alt="loading"
-                />
-                <span className="loadingMsg">正在加载中，请稍等</span>
-              </div>
-            ),
-          }}
+          columns={newColumns}
+          // todo loading 暂时无法修改
+          // loading={{
+          //   indicator: (
+          //     <div className={classNames('spinShower ')}>
+          //       <img
+          //         src={loadingIcon}
+          //         className="loadingIcon ant-spin-dot"
+          //         alt="loading"
+          //       />
+          //       <span className="loadingMsg">正在加载中，请稍等</span>
+          //     </div>
+          //   ),
+          // }}
           request={newRequest}
           ref={tableRef}
-          columns={columns?.map((c) => c)}
           search={{
             hidden: !search,
             ...search,

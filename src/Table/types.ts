@@ -3,8 +3,9 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-04-26 10:25:29
+ * @LastEditTime: 2023-04-26 16:43:34
  */
+import { TooltipProps } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import { ReactNode } from 'react';
 import { TableRenderProps } from 'table-render';
@@ -20,7 +21,7 @@ export type TableProps<Row> = {
    * @description 是否将参数放到URL中
    * @default true
    */
-  useSearchParams?: boolean;
+  isCacheSearchInUrl?: boolean;
   /**
    * @description 自定义顶部标题、操作按钮
    */
@@ -49,6 +50,31 @@ export type TableProps<Row> = {
    * @type TableContext<Row>;
    */
   ref?: React.MutableRefObject<Row> | null;
-} & TableRenderProps;
+  /**
+   * @description 在 TableRenderProps['columns'] 基础上补充 tooltip & filterOptions
+   */
+  columns: Columns[];
+} & Omit<TableRenderProps, 'columns'>;
 
 export type TableRef<Row = any> = TableContext<Row>;
+
+export type Columns = TableRenderProps['columns'][number] & {
+  /**
+   * @description title 的说明文案
+   */
+  tooltip?: string | TooltipProps;
+  /**
+   * @description 表格列筛选项
+   */
+  filterOptions?: Options[];
+  /**
+   * @description table column 使用的数据字段，tab了Render 没有提供这个字段
+   */
+  dataIndex: string;
+};
+
+export type Options = {
+  label: string | number;
+  value: string | number;
+  [k: string]: any;
+};

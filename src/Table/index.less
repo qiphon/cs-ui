@@ -121,4 +121,30 @@
     font-weight: 400;
     font-size: 14px;
   }
+
+  /** columns */
+  .tableColumn {
+    &Icon {
+      display: block;
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+    }
+  }
+}
+
+/** popover */
+.@{prefix}tablePopover {
+  box-shadow: 0 2px 6px 1px #8796b033;
+  overflow: hidden;
+  border-radius: @border-radius-base;
+
+  &,
+  .ant-popover-inner-content {
+    padding: 0;
+  }
+
+  .ant-popover-arrow {
+    display: none;
+  }
 }

@@ -319,6 +319,110 @@ export default () => {
 };
 ```
 
+### title 中添加 tooltip
+
+```tsx
+import React, { useRef, useEffect } from 'react';
+import { Table, Button, Ellipsis } from 'cs-ui';
+// import { TableRef } from 'cs-ui/types';
+import { xRenderSeachSchema } from 'cs-ui/Table/utils';
+
+export default () => {
+  const getData = (size, total) => ({
+    data: new Array(size).fill(1).map((v, k) => {
+      return {
+        realName: k + 'realname' + String(Math.random()).slice(-3),
+        mobile: k + 'mobile' + String(Math.random()).slice(-3),
+        orgNames: k + 'orgNames' + String(Math.random()).slice(-3),
+        roleNames: k + 'roleNames' + String(Math.random()).slice(-3),
+        updateByName: k + 'updateByName' + String(Math.random()).slice(-3),
+        updateTime: k + 'updateTime' + String(Math.random()).slice(-3),
+      };
+    }),
+    total: total || size,
+  });
+  const api = ({ current: page, pageSize }) => {
+    if (page === 1) {
+      return Promise.resolve(getData(pageSize, 100));
+    }
+    return new Promise((r) => {
+      setTimeout(() => r(getData(pageSize, 100)), 1113000);
+    });
+  };
+  // const tableRef = useRef<TableRef | null>(null);
+
+  return (
+    <div style={{ padding: 10, background: 'red', height: 500 }}>
+      <Table
+        topRender={{
+          left: '用户列 表',
+          right: (
+            <div className="flex-row-between-center">
+              <Button>自定义1</Button>
+              <Button>2</Button>
+            </div>
+          ),
+        }}
+        search={{
+          // hidden: true,
+          schema: {
+            type: 'object',
+            properties: {
+              likeUserInfo: xRenderSeachSchema({
+                type: 'string',
+                placeholder: '请输入用户名/姓名/手机号',
+              }),
+              sdfsdf: xRenderSeachSchema({
+                type: 'string',
+                placeholder: '请输入用户名/姓名/手机号',
+              }),
+            },
+          },
+        }}
+        request={api}
+        columns={[
+          {
+            title: '姓名',
+            dataIndex: 'realName',
+            tooltip: '1111111收到雷锋精神两地分居失蜡法',
+          },
+          {
+            title: '手机号',
+            dataIndex: 'mobile',
+            tooltip: '132213收到雷锋精神两地分居失蜡法',
+            filterOptions: new Array(41).fill(1).map((o, i) => ({
+              label: `测试${i}`,
+              value: i,
+            })),
+          },
+          {
+            title: '所属组织',
+            dataIndex: 'orgNames',
+          },
+          {
+            title: '角色',
+            dataIndex: 'roleNames',
+          },
+
+          {
+            title: '更新人',
+            dataIndex: 'updateByName',
+            render(t) {
+              return <Ellipsis text={t}></Ellipsis>;
+            },
+          },
+          {
+            title: '更新时间',
+            dataIndex: 'updateTime',
+            width: 200,
+          },
+        ]}
+      />
+    </div>
+  );
+};
+```
+
 ### 多搜索项
 
 ```tsx
@@ -348,7 +452,37 @@ export default () => {
     return Promise.resolve(getData(pageSize, 100));
   };
   // const tableRef = useRef<TableRef | null>(null);
+  const columns = [
+    {
+      title: '姓名',
+      dataIndex: 'realName',
+    },
+    {
+      title: '手机号',
+      dataIndex: 'mobile',
+    },
+    {
+      title: '所属组织',
+      dataIndex: 'orgNames',
+    },
+    {
+      title: '角色',
+      dataIndex: 'roleNames',
+    },
 
+    {
+      title: '更新人',
+      dataIndex: 'updateByName',
+      render(t) {
+        return <Ellipsis text={t}></Ellipsis>;
+      },
+    },
+    {
+      title: '更新时间',
+      dataIndex: 'updateTime',
+      width: 200,
+    },
+  ];
   return (
     <div style={{ padding: 10, background: 'red', height: 500 }}>
       <Table
@@ -389,37 +523,7 @@ export default () => {
           },
         }}
         request={api}
-        columns={[
-          {
-            title: '姓名',
-            dataIndex: 'realName',
-          },
-          {
-            title: '手机号',
-            dataIndex: 'mobile',
-          },
-          {
-            title: '所属组织',
-            dataIndex: 'orgNames',
-          },
-          {
-            title: '角色',
-            dataIndex: 'roleNames',
-          },
-
-          {
-            title: '更新人',
-            dataIndex: 'updateByName',
-            render(t) {
-              return <Ellipsis text={t}></Ellipsis>;
-            },
-          },
-          {
-            title: '更新时间',
-            dataIndex: 'updateTime',
-            width: 200,
-          },
-        ]}
+        columns={columns}
       />
     </div>
   );
