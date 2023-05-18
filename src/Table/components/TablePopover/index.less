@@ -2,43 +2,69 @@
 
 .tableFilterStatusMain {
   width: 160px;
-  // 没有过滤时，顶部距离是12
+
+  /* 没有过滤时，顶部距离是12 */
   padding: 12px;
+  overflow: hidden;
   background: @whiteBg;
 
+  .filterSearch {
+    transform: translateY(-8px);
+    border-bottom: 1px solid @divedeLineColor;
+    padding: 6px 0;
+
+    .ant-input-prefix {
+      margin-right: 11px;
+    }
+
+    .searchIcon {
+      width: 14px;
+      height: 14px;
+      fill: @searchIcon;
+    }
+
+    &,
+    &:active,
+    &:focus,
+    &.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+      box-shadow: none;
+      border: 1px solid transparent;
+      border-bottom: 1px solid @divedeLineColor;
+      outline: none;
+    }
+  }
+
   .listMain {
-    padding: 0 0 10px 1px;
+    padding: 0 30px 10px 1px;
     max-height: 152px;
     overflow: auto;
+    width: calc(100% + 30px);
     border-bottom: 1px solid @divedeLineColor;
+
+    .ant-radio-group,
+    .ant-checkbox-group {
+      &,
+      label,
+      span {
+        max-width: 100%;
+      }
+
+      label {
+        > span:extend(.flex-row-start-center) {
+          max-width: 95%;
+        }
+      }
+    }
 
     &Item {
       font-size: 14px;
 
-      & + .listMainItem {
-        margin-top: 12px;
+      &.hide {
+        display: none;
       }
 
-      .ant-checkbox-wrapper {
-        width: 100%;
-        align-items: center;
-        height: 20px;
-
-        .ant-checkbox {
-          flex: 0 0 auto;
-          width: 14px;
-          height: 14px;
-          position: relative;
-          top: -1px;
-        }
-
-        > :not(.ant-checkbox) {
-          line-height: 20px;
-          height: 20px;
-          flex: 1 1 auto;
-          padding-right: 0;
-          overflow: hidden;
-        }
+      & + .listMainItem {
+        margin-top: 12px;
       }
     }
   }
