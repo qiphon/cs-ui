@@ -3,8 +3,9 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-05-18 21:05:17
+ * @LastEditTime: 2023-05-19 15:58:49
  */
+import { Buffer } from 'safe-buffer';
 
 import { TableSearchKey } from './constant';
 

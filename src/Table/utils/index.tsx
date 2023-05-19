@@ -3,18 +3,19 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-05-19 10:36:22
+ * @LastEditTime: 2023-05-19 18:14:16
  */
 import { Popover, TableProps, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { FilterIcon } from 'cs-ui/Icons/FilterIcon';
 import { HelpIcon } from 'cs-ui/Icons/HelpIcon';
 import { addClassNamePrefix } from 'cs-ui/utils';
+import { difference, pick } from 'lodash-es';
 import React from 'react';
 import { SearchProps } from 'table-render';
 
 import TableFilterStatus from '../components/TablePopover';
-import { Columns } from '../types';
+import { Columns, PickFormValueInSearchProps } from '../types';
 
 /**
  * 生成 xrender search 表单数据
@@ -120,4 +121,27 @@ export const useModifyColumns = <T = any,>(
       ),
     };
   });
+};
+
+/**
+ * 筛选出search中的应用到搜索项中的值
+ * - 目前移除
+ *    - column 筛选项
+ *    - 用户自定义的搜索值
+ */
+export const pickFormValueInSearch = (
+  value: Record<string, any>,
+  { columns, userSearch }: PickFormValueInSearchProps,
+) => {
+  let keys = Object.keys(value);
+  const columnsKey = columns?.map((c) => c.dataIndex || c.key);
+  const userSearchKey = Object.keys(userSearch || {});
+
+  return pick(
+    value,
+    difference(keys, [
+      ...(columnsKey || []),
+      ...(userSearchKey || []),
+    ] as string[]),
+  );
 };

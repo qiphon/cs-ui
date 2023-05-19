@@ -3,10 +3,13 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-05-19 10:11:42
+ * @LastEditTime: 2023-05-19 18:33:46
  */
 import { TablePaginationConfig } from 'antd';
 import classNames from 'classnames';
+import { Button } from 'cs-ui/Button';
+import { ResetIcon } from 'cs-ui/Icons/ResetIcon';
+import { SearchIcon } from 'cs-ui/Icons/SearchIcon';
 import React, {
   ForwardRefExoticComponent,
   PropsWithoutRef,
@@ -21,7 +24,11 @@ import { SearchApi } from 'table-render/dist/src/types';
 import './index.less';
 
 import { TableProps, TableRef } from './types';
-import { defaultSchema, useModifyColumns } from './utils';
+import {
+  defaultSchema,
+  pickFormValueInSearch,
+  useModifyColumns,
+} from './utils';
 import {
   addClassNamePrefix,
   getSearch,
@@ -33,11 +40,13 @@ import {
 const XTable: ForwardRefExoticComponent<
   PropsWithoutRef<TableProps<any>> & RefAttributes<TableRef>
 > = forwardRef(
-  ({ userSearch, topRender, searchKey, searchTopRender, ...props }, ref) => {
+  (
+    { userSearch, topRender, searchKey, searchTopRender, columns, ...props },
+    ref,
+  ) => {
     const { pagination, search, request } = props;
     // 自定义搜索参数
     const cacheUserSearch = React.useRef<Record<string, any>>({});
-    const form = useRef();
     const tableRef = useRef<TableRef>();
     // 分页信息
     const [pageInfo, setPageInfo] = useState<TablePaginationConfig>({
@@ -55,8 +64,12 @@ const XTable: ForwardRefExoticComponent<
     });
 
     /** 设置search */
-    const cacheSeach = (search?: Record<string, any>) => {
+    const cacheSeach = (search?: Record<string, any>, reset?: boolean) => {
       if (!searchKey) {
+        return {};
+      }
+      if (reset) {
+        cacheUserSearch.current = search || {};
         return {};
       }
       cacheUserSearch.current = { ...cacheUserSearch.current, ...search };
@@ -79,36 +92,48 @@ const XTable: ForwardRefExoticComponent<
       }),
       [],
     );
-
+    /** 第一次进入先去使用URL中的参数 */
     const isFirstRender = React.useRef(true);
     let newRequest: TableProps<any>['request'];
     /** 覆盖默认请求 */
     const modifyDefaultRequest =
       (request: SearchApi<any>): SearchApi<any> =>
       (props, ...args) => {
-        let newSe = { ...cacheUserSearch.current, ...props };
+        let newSe = { ...props };
         if (isFirstRender.current) {
           const urlSearch = getSearch()?.[searchKey];
-          if (urlSearch) {
+          /** 处理 URL 中的搜索值 */
+          if (urlSearch && searchKey) {
             let result: Record<string, any> = {};
             // 当链接超长时，可能会出现参数丢失，丢失时直接全部舍弃
             try {
               const decryptStr = decrypt(urlSearch);
               result = JSON.parse(decryptStr);
+              if (typeof result === 'object' && Object.keys(result)?.length) {
+                tableRef.current?.form.setValues?.(
+                  pickFormValueInSearch(
+                    { ...result },
+                    {
+                      columns,
+                      userSearch: { ...userSearch, current: 1, pageSize: 1 },
+                    },
+                  ),
+                );
+              }
             } catch {
               result = {};
               console.warn('search 参数错误，请检查数据是否错误: ', urlSearch);
             }
-
             cacheSeach(result);
           }
-
+          // search 中的 分页字段 覆盖默认分页
           newSe = { ...newSe, ...cacheUserSearch.current };
         }
 
         // 防止 current 和 pageSize 参数被置为无用字段
         newSe = {
           ...newSe,
+          ...cacheUserSearch.current,
           current: +newSe.current > 0 ? +newSe.current : props.current,
           pageSize: +newSe.pageSize > 0 ? +newSe.pageSize : props.pageSize,
         };
@@ -136,14 +161,13 @@ const XTable: ForwardRefExoticComponent<
       }));
     }
 
-    const newColumns = useModifyColumns(props.columns, {
+    const newColumns = useModifyColumns(columns, {
       cachedSearch: cacheUserSearch.current,
       cacheSeach,
       refresh: () => {
         tableRef.current?.refresh?.();
       },
     });
-
     return (
       <div className={addClassNamePrefix('tableWrapper')}>
         {!!topRender && (
@@ -181,10 +205,39 @@ const XTable: ForwardRefExoticComponent<
           request={newRequest}
           ref={tableRef}
           search={{
+            removeHiddenData: true,
             hidden: !search,
+            searchBtnRender: (submit, clear) => [
+              <Button
+                type="primary"
+                ghost
+                key="submit"
+                icon={
+                  <span className="search ButtonIcon">
+                    <SearchIcon className="icon primary" />
+                  </span>
+                }
+                onClick={async () => submit()}
+              >
+                查询
+              </Button>,
+              <Button
+                key="reset"
+                icon={
+                  <span className="clear ButtonIcon">
+                    <ResetIcon className="icon gray" />
+                  </span>
+                }
+                onClick={async () => {
+                  cacheSeach({}, true);
+                  return clear();
+                }}
+              >
+                重置
+              </Button>,
+            ],
             ...search,
             schema: search?.schema || defaultSchema,
-            form,
             className: classNames(search?.className, 'tableSearch'),
           }}
           scroll={{ ...props.scroll, y: 'auto' }}

@@ -1,6 +1,6 @@
 {
   "name": "@qiphon/cs-ui",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "cs ui component",
   "homepage": "https://ui-module.carbonstop.net",
   "license": "MIT",
@@ -48,6 +48,7 @@
   "dependencies": {
     "classnames": "^2.3.2",
     "lodash-es": "^4.17.21",
+    "safe-buffer": "^5.2.1",
     "table-render": "^2.0.14"
   },
   "devDependencies": {

@@ -3,7 +3,7 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-05-18 18:33:50
+ * @LastEditTime: 2023-05-19 18:12:42
  */
 import { TooltipProps } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
@@ -81,4 +81,9 @@ export type Options = {
   label: string | number;
   value: string | number;
   [k: string]: any;
+};
+
+export type PickFormValueInSearchProps = {
+  columns?: Columns[];
+  userSearch?: TableProps<any>['userSearch'];
 };
