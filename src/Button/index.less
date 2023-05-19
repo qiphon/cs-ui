@@ -27,6 +27,12 @@
   &.primary {
     color: @whiteColor;
 
+    &.ghost {
+      color: @primary-color;
+
+      .borderBgMix(@primary-color, @whiteBg);
+    }
+
     &:active {
       .borderBgMix(@success-click-color,@success-click-color);
 
@@ -46,9 +52,12 @@
     }
   }
 
-  &.ghost,
   &.default {
     .borderBgMix(@default-border, @whiteBg);
+
+    &.ghost {
+      .borderBgMix(@grayBg, @grayBg);
+    }
 
     &:hover {
       .borderBgMix(@primary-color, @whiteBg);

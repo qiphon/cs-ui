@@ -135,4 +135,38 @@ export default () => {
 };
 ```
 
+### ghost button
+
+```tsx
+import { Button } from 'cs-ui';
+import { ConfigProvider } from 'antd';
+
+export default () => {
+  return (
+    <div>
+      <div style={{ marginTop: 20 }}>
+        <Button type="primary" ghost size="large">
+          large
+        </Button>
+      </div>
+      <div style={{ marginTop: 20 }}>
+        <Button type="primary" ghost>
+          large
+        </Button>
+      </div>
+      <div style={{ marginTop: 20 }}>
+        <Button type="default" ghost size="large">
+          large
+        </Button>
+      </div>
+      <div style={{ marginTop: 20 }}>
+        <Button type="default" ghost>
+          large
+        </Button>
+      </div>
+    </div>
+  );
+};
+```
+
 <API id="Button"></API>

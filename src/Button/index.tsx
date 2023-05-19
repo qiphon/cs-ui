@@ -20,7 +20,12 @@ export type ButtonProps = {
 } & Omit<AntButtonProps, 'onClick'> &
   CommonType;
 
-export const Button: FC<ButtonProps> = ({ onClick, className, ...props }) => {
+export const Button: FC<ButtonProps> = ({
+  onClick,
+  className,
+  ghost,
+  ...props
+}) => {
   const [loading, setLoading] = useState(false);
   const clickEvent = (ev: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (loading) return Promise.resolve('');
@@ -45,6 +50,7 @@ export const Button: FC<ButtonProps> = ({ onClick, className, ...props }) => {
         },
         props.type || 'default',
         props.size || 'middle',
+        { ghost },
       )}
     >
       {loading ? (
