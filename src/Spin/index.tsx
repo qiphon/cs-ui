@@ -1,9 +1,9 @@
 import { Spin as SpinAnt, type SpinProps as SpinPropsAnt } from 'antd';
 import classNames from 'classnames';
-import loadingIcon from 'cs-ui/assets/svgs/loading-16-16@2x.png';
 import { addClassNamePrefix } from 'cs-ui/utils';
 import React, { ReactNode } from 'react';
 import './index.less';
+import { LoadingIcon } from 'cs-ui/Icons/LoadingIcon';
 
 export type SpinProps = {
   /** 提示文字信息 */
@@ -26,11 +26,12 @@ export const Spin: React.FC<SpinProps> = ({
     <SpinAnt
       indicator={
         <div className={classNames('spinShower ', loadingSize, tipPosition)}>
-          <img
+          {/* <img
             src={loadingIcon}
             className="loadingIcon ant-spin-dot"
             alt="loading"
-          />
+          /> */}
+          <LoadingIcon className="ant-spin-dot loadingIcon " active rotate />
           {tip && <span className="loadingMsg">{tip}</span>}
         </div>
       }

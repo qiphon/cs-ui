@@ -3,13 +3,13 @@
  */
 import { Button as AntButton, ButtonProps as AntButtonProps } from 'antd';
 import classNames from 'classnames';
+import { LoadingIcon } from 'cs-ui/Icons/LoadingIcon';
 import { addClassNamePrefix } from 'cs-ui/utils';
 import React, { FC } from 'react';
 import { useState } from 'react';
 
-import loadingActiveIcon from '../assets/svgs/loading-16-16@2x.png';
-import loadingIcon from '../assets/svgs/loaing-16-16@2x.png';
 import { CommonType } from '../types';
+
 import './index.less';
 
 export type ButtonProps = {
@@ -48,9 +48,10 @@ export const Button: FC<ButtonProps> = ({ onClick, className, ...props }) => {
       )}
     >
       {loading ? (
-        <img
-          src={props.type === 'primary' ? loadingIcon : loadingActiveIcon}
-          className="loadingIcon"
+        <LoadingIcon
+          className={classNames('loadingIcon')}
+          active={props.type !== 'primary'}
+          rotate
         />
       ) : (
         props.children
