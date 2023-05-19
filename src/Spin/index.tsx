@@ -26,12 +26,9 @@ export const Spin: React.FC<SpinProps> = ({
     <SpinAnt
       indicator={
         <div className={classNames('spinShower ', loadingSize, tipPosition)}>
-          {/* <img
-            src={loadingIcon}
-            className="loadingIcon ant-spin-dot"
-            alt="loading"
-          /> */}
-          <LoadingIcon className="ant-spin-dot loadingIcon " active rotate />
+          <span className="spiningWrapper">
+            <LoadingIcon className=" spinLoading " active rotate />
+          </span>
           {tip && <span className="loadingMsg">{tip}</span>}
         </div>
       }
