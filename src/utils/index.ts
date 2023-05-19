@@ -3,8 +3,11 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-04-26 10:50:17
+ * @LastEditTime: 2023-05-18 21:05:17
  */
+
+import { TableSearchKey } from './constant';
+
 /** 需要 styles/var.less 中的 prefix 保持一致 */
 const classNamePrefix = 'cs-ui';
 /** 给类名添加前缀，保证结果和less文件一致 */
@@ -46,3 +49,56 @@ export const updateSearch = ({
 /** 获取search参数 */
 export const getSearch = () =>
   Object.fromEntries(new URLSearchParams(location.search).entries());
+
+const keyStream = (key: string) => {
+  let S: number[] = [];
+  let j = 0;
+  let K = [];
+  for (let i = 0; i < 256; i++) {
+    S[i] = i;
+    K[i] = key.charCodeAt(i % key.length);
+  }
+  for (let i = 0; i < 256; i++) {
+    j = (j + S[i] + K[i]) % 256;
+    let temp = S[i];
+    S[i] = S[j];
+    S[j] = temp;
+  }
+  return S;
+};
+
+export const encrypt = (plaintext: string, secureKey?: string) => {
+  let key = secureKey || TableSearchKey;
+  let keystream = keyStream(key);
+  let ciphertext = '';
+  for (let i = 0; i < plaintext.length; i++) {
+    let charCode = plaintext.charCodeAt(i) ^ keystream[i % 256];
+    ciphertext += String.fromCharCode(charCode);
+  }
+  let base64EncodedCiphertext = Buffer.from(ciphertext, 'utf-8').toString(
+    'base64',
+  );
+  // return base64EncodedCiphertext
+  // 对加密结果进行 URL 安全 Base64 编码
+  return base64EncodedCiphertext
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+};
+
+export const decrypt = (
+  base64EncodedCiphertext: string,
+  secureKey?: string,
+) => {
+  let ciphertext = Buffer.from(base64EncodedCiphertext, 'base64').toString(
+    'utf-8',
+  );
+  let key = secureKey || TableSearchKey;
+  let keystream = keyStream(key);
+  let decryptedtext = '';
+  for (let i = 0; i < ciphertext.length; i++) {
+    let charCode = ciphertext.charCodeAt(i) ^ keystream[i % 256];
+    decryptedtext += String.fromCharCode(charCode);
+  }
+  return decryptedtext;
+};

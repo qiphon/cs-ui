@@ -3,7 +3,7 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-04-26 16:43:34
+ * @LastEditTime: 2023-05-18 18:33:50
  */
 import { TooltipProps } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
@@ -17,11 +17,7 @@ export type TableProps<Row> = {
    * @type Record<string, any>
    */
   userSearch?: Record<string, any>;
-  /**
-   * @description 是否将参数放到URL中
-   * @default true
-   */
-  isCacheSearchInUrl?: boolean;
+
   /**
    * @description 自定义顶部标题、操作按钮
    */
@@ -54,6 +50,10 @@ export type TableProps<Row> = {
    * @description 在 TableRenderProps['columns'] 基础上补充 tooltip & filterOptions
    */
   columns: Columns[];
+  /**
+   * @description 保存在url上的搜索条件key, 不传则不保存搜索条件到url中，必须保证这个key是在search中是唯一的
+   */
+  searchKey: string;
 } & Omit<TableRenderProps, 'columns'>;
 
 export type TableRef<Row = any> = TableContext<Row>;
@@ -67,6 +67,10 @@ export type Columns = TableRenderProps['columns'][number] & {
    * @description 表格列筛选项
    */
   filterOptions?: Options[];
+  /**
+   * @description 筛选是不是多选
+   */
+  filterMultiple?: boolean;
   /**
    * @description table column 使用的数据字段，tab了Render 没有提供这个字段
    */

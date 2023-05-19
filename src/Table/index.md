@@ -341,12 +341,13 @@ export default () => {
     }),
     total: total || size,
   });
-  const api = ({ current: page, pageSize }) => {
+  const api = ({ current: page, pageSize, ...args }) => {
+    console.log(args, 'filter');
     if (page === 1) {
       return Promise.resolve(getData(pageSize, 100));
     }
     return new Promise((r) => {
-      setTimeout(() => r(getData(pageSize, 100)), 1113000);
+      setTimeout(() => r(getData(pageSize, 100)), 100);
     });
   };
   // const tableRef = useRef<TableRef | null>(null);
@@ -379,6 +380,7 @@ export default () => {
             },
           },
         }}
+        searchKey="test"
         request={api}
         columns={[
           {
@@ -390,7 +392,7 @@ export default () => {
             title: '手机号',
             dataIndex: 'mobile',
             tooltip: '132213收到雷锋精神两地分居失蜡法',
-            filterOptions: new Array(41).fill(1).map((o, i) => ({
+            filterOptions: new Array(4).fill(1).map((o, i) => ({
               label: `测试${i}`,
               value: i,
             })),
@@ -398,6 +400,11 @@ export default () => {
           {
             title: '所属组织',
             dataIndex: 'orgNames',
+            filterOptions: new Array(41).fill(1).map((o, i) => ({
+              label: `测试${i}`,
+              value: i,
+            })),
+            filterMultiple: true,
           },
           {
             title: '角色',

@@ -126,9 +126,21 @@
   .tableColumn {
     &Icon {
       display: block;
+      margin-left: 4px;
       width: 16px;
       height: 16px;
-      margin-left: 4px;
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      fill: @searchIcon;
+    }
+
+    .filterIcon {
+      &.active {
+        fill: @primary-color;
+      }
     }
   }
 }

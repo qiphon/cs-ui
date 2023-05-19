@@ -3,12 +3,12 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-04-27 09:44:47
+ * @LastEditTime: 2023-05-19 10:36:22
  */
 import { Popover, TableProps, Tooltip } from 'antd';
-import defaultFilterIcon from 'cs-ui/assets/svgs/icon-filter-default.svg';
-import filterIcon from 'cs-ui/assets/svgs/icon-filter.svg';
-import helpIcon from 'cs-ui/assets/svgs/icon-help.svg';
+import classNames from 'classnames';
+import { FilterIcon } from 'cs-ui/Icons/FilterIcon';
+import { HelpIcon } from 'cs-ui/Icons/HelpIcon';
 import { addClassNamePrefix } from 'cs-ui/utils';
 import React from 'react';
 import { SearchProps } from 'table-render';
@@ -44,9 +44,18 @@ export const defaultSchema = {
  */
 export const useModifyColumns = <T = any,>(
   columns: Columns[],
-  { cacheUserSearch }: { cacheUserSearch: Record<keyof T, any> },
+  {
+    cachedSearch: cacheUserSearch,
+    refresh,
+    cacheSeach,
+  }: {
+    cacheSeach: (params: Record<string, any>) => any;
+    cachedSearch: Record<string, any>;
+    refresh: () => void;
+  },
 ): NonNullable<TableProps<T>['columns']> => {
   const [openKey, setOpenKey] = React.useState<string | number>('');
+
   return columns.map((c) => {
     if ((!c.tooltip && !c.filterOptions) || typeof c.title === 'function')
       return c;
@@ -61,22 +70,28 @@ export const useModifyColumns = <T = any,>(
               title={typeof c.tooltip === 'string' ? c.tooltip : ''}
               {...(typeof c.tooltip === 'object' ? c.tooltip : {})}
             >
-              <img
-                src={helpIcon}
-                alt="help"
-                className="tableColumnIcon helpIcon"
-              />
+              <span className="tableColumnIcon ">
+                <HelpIcon className=" icon" />
+              </span>
             </Tooltip>
           )}
           {!!c.filterOptions && (
             <Popover
               content={
                 <TableFilterStatus
+                  multiple={c.filterMultiple}
                   options={c.filterOptions}
-                  onConfirmClick={(checked) => {
-                    console.log(checked);
+                  onConfirmClick={(selected) => {
+                    if (columnsKey) {
+                      cacheSeach({
+                        ...cacheUserSearch,
+                        [columnsKey]: selected,
+                      });
+                      refresh();
+                    }
                     setOpenKey('');
                   }}
+                  value={columnsKey ? cacheUserSearch?.[columnsKey] : undefined}
                 />
               }
               destroyTooltipOnHide
@@ -86,19 +101,19 @@ export const useModifyColumns = <T = any,>(
               // getPopupContainer={(s) => s}
               trigger="click"
             >
-              <img
+              <span
                 onClick={(ev) => {
                   ev.stopPropagation();
                   setOpenKey(columnsKey as string | number);
                 }}
-                src={
-                  columnsKey && cacheUserSearch?.[columnsKey]?.length
-                    ? filterIcon
-                    : defaultFilterIcon
-                }
-                alt="filter"
-                className="tableColumnIcon filterIcon"
-              />
+                className="tableColumnIcon"
+              >
+                <FilterIcon
+                  className={classNames(' icon', {
+                    active: columnsKey && cacheUserSearch?.[columnsKey]?.length,
+                  })}
+                />
+              </span>
             </Popover>
           )}
         </div>

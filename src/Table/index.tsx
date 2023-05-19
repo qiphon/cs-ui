@@ -3,13 +3,10 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-04-26 20:43:26
+ * @LastEditTime: 2023-05-19 10:11:42
  */
 import { TablePaginationConfig } from 'antd';
 import classNames from 'classnames';
-
-import { addClassNamePrefix, getSearch, updateSearch } from '../utils';
-
 import React, {
   ForwardRefExoticComponent,
   PropsWithoutRef,
@@ -19,26 +16,27 @@ import React, {
   useState,
 } from 'react';
 import TableRender from 'table-render';
+import { SearchApi } from 'table-render/dist/src/types';
 
 import './index.less';
-import { SearchApi } from 'table-render/dist/src/types';
 
 import { TableProps, TableRef } from './types';
 import { defaultSchema, useModifyColumns } from './utils';
+import {
+  addClassNamePrefix,
+  getSearch,
+  updateSearch,
+  encrypt,
+  decrypt,
+} from '../utils';
 
 const XTable: ForwardRefExoticComponent<
   PropsWithoutRef<TableProps<any>> & RefAttributes<TableRef>
 > = forwardRef(
-  (
-    { userSearch, topRender, isCacheSearchInUrl, searchTopRender, ...props },
-    ref,
-  ) => {
+  ({ userSearch, topRender, searchKey, searchTopRender, ...props }, ref) => {
     const { pagination, search, request } = props;
     // 自定义搜索参数
-    const cacheUserSearch = React.useRef<Record<string, any>>(
-      Object.is(false, isCacheSearchInUrl) ? {} : getSearch(),
-    );
-
+    const cacheUserSearch = React.useRef<Record<string, any>>({});
     const form = useRef();
     const tableRef = useRef<TableRef>();
     // 分页信息
@@ -55,14 +53,16 @@ const XTable: ForwardRefExoticComponent<
       ),
       ...(pagination || {}),
     });
+
+    /** 设置search */
     const cacheSeach = (search?: Record<string, any>) => {
-      if (Object.is(isCacheSearchInUrl, false)) {
+      if (!searchKey) {
         return {};
       }
       cacheUserSearch.current = { ...cacheUserSearch.current, ...search };
       return cacheUserSearch.current;
     };
-
+    /** 更新用户传入的search到table本地search中 */
     React.useEffect(() => {
       cacheSeach(userSearch);
     }, [userSearch]);
@@ -82,11 +82,27 @@ const XTable: ForwardRefExoticComponent<
 
     const isFirstRender = React.useRef(true);
     let newRequest: TableProps<any>['request'];
+    /** 覆盖默认请求 */
     const modifyDefaultRequest =
       (request: SearchApi<any>): SearchApi<any> =>
       (props, ...args) => {
         let newSe = { ...cacheUserSearch.current, ...props };
         if (isFirstRender.current) {
+          const urlSearch = getSearch()?.[searchKey];
+          if (urlSearch) {
+            let result: Record<string, any> = {};
+            // 当链接超长时，可能会出现参数丢失，丢失时直接全部舍弃
+            try {
+              const decryptStr = decrypt(urlSearch);
+              result = JSON.parse(decryptStr);
+            } catch {
+              result = {};
+              console.warn('search 参数错误，请检查数据是否错误: ', urlSearch);
+            }
+
+            cacheSeach(result);
+          }
+
           newSe = { ...newSe, ...cacheUserSearch.current };
         }
 
@@ -104,7 +120,11 @@ const XTable: ForwardRefExoticComponent<
         }));
         cacheSeach(newSe);
         isFirstRender.current = false;
-        updateSearch({ searchParams: newSe });
+        if (searchKey) {
+          updateSearch({
+            searchParams: { [searchKey]: encrypt(JSON.stringify(newSe)) },
+          });
+        }
         return request(newSe, ...args);
       };
     if (typeof request === 'function') {
@@ -116,7 +136,13 @@ const XTable: ForwardRefExoticComponent<
       }));
     }
 
-    const newColumns = useModifyColumns(props.columns, { cacheUserSearch });
+    const newColumns = useModifyColumns(props.columns, {
+      cachedSearch: cacheUserSearch.current,
+      cacheSeach,
+      refresh: () => {
+        tableRef.current?.refresh?.();
+      },
+    });
 
     return (
       <div className={addClassNamePrefix('tableWrapper')}>

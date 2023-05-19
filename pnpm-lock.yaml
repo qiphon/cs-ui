@@ -7,6 +7,9 @@ dependencies:
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
+  lodash-es:
+    specifier: ^4.17.21
+    version: 4.17.21
   table-render:
     specifier: ^2.0.14
     version: 2.0.14(antd@4.24.8)(react-dom@18.0.0)(react@18.0.0)
@@ -18,6 +21,9 @@ devDependencies:
   '@commitlint/config-conventional':
     specifier: ^17.1.0
     version: 17.1.0
+  '@types/lodash-es':
+    specifier: ^4.17.7
+    version: 4.17.7
   '@types/react':
     specifier: ^18.0.0
     version: 18.0.0
@@ -2259,6 +2265,16 @@ packages:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
       '@types/node': 18.15.11
+    dev: true
+
+  /@types/lodash-es@4.17.7:
+    resolution: {integrity: sha512-z0ptr6UI10VlU6l5MYhGwS4mC8DZyYer2mCoyysZtSF7p26zOX8UpbrV0YpNYLGS8K4PUFIyEr62IMFFjveSiQ==}
+    dependencies:
+      '@types/lodash': 4.14.194
+    dev: true
+
+  /@types/lodash@4.14.194:
+    resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
     dev: true
 
   /@types/mdast@3.0.11:
