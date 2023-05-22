@@ -4,11 +4,11 @@ cs ui component
 
 ## Usage
 
-TODO
+install
 
-## Options
-
-TODO
+```
+npm i @cs/ui
+```
 
 ## Development
 

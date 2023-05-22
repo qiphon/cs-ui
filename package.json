@@ -1,6 +1,6 @@
 {
-  "name": "@qiphon/cs-ui",
-  "version": "0.0.4",
+  "name": "@cs/ui",
+  "version": "0.0.1",
   "description": "cs ui component",
   "homepage": "https://ui-module.carbonstop.net",
   "license": "MIT",

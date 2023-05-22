@@ -3,7 +3,7 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-03-29 09:43:31
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-04-21 10:50:58
+ * @LastEditTime: 2023-05-22 10:44:15
  */
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
@@ -23,7 +23,10 @@ export const Ellipsis = ({ text, className, maxWidth, style }: Props) => {
     }
   }, []);
   return (
-    <Tooltip title={isElliplsis ? text : undefined}>
+    <Tooltip
+      title={isElliplsis ? text : undefined}
+      overlayClassName="ellipsisTooltipOverlay"
+    >
       <div
         className={classNames(
           addClassNamePrefix('ellipsisWrapper'),
