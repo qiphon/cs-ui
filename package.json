@@ -3,7 +3,12 @@
   "version": "0.0.1",
   "description": "cs ui component",
   "homepage": "https://ui-module.carbonstop.net",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:qiphon/cs-ui.git"
+  },
   "license": "MIT",
+  "author": "qiphon",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

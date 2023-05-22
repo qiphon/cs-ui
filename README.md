@@ -7,7 +7,7 @@ cs ui component
 install
 
 ```
-npm i @cs/ui
+npm i @carbonstop/ui
 ```
 
 ## Development
