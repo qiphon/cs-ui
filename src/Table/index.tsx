@@ -3,7 +3,7 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-05-19 18:33:46
+ * @LastEditTime: 2023-05-24 14:16:59
  */
 import { TablePaginationConfig } from 'antd';
 import classNames from 'classnames';
@@ -41,7 +41,16 @@ const XTable: ForwardRefExoticComponent<
   PropsWithoutRef<TableProps<any>> & RefAttributes<TableRef>
 > = forwardRef(
   (
-    { userSearch, topRender, searchKey, searchTopRender, columns, ...props },
+    {
+      userSearch,
+      topRender,
+      searchKey,
+      searchTopRender,
+      columns,
+      wrapperClass,
+      style,
+      ...props
+    },
     ref,
   ) => {
     const { pagination, search, request } = props;
@@ -169,7 +178,10 @@ const XTable: ForwardRefExoticComponent<
       },
     });
     return (
-      <div className={addClassNamePrefix('tableWrapper')}>
+      <div
+        className={classNames(wrapperClass, addClassNamePrefix('tableWrapper'))}
+        style={style}
+      >
         {!!topRender && (
           <div className="tableTop">
             <div className="tableTopLeft">

@@ -3,10 +3,11 @@
  * @Author: qifeng qifeng@carbonstop.net
  * @Date: 2023-04-25 14:29:09
  * @LastEditors: qifeng qifeng@carbonstop.net
- * @LastEditTime: 2023-05-19 18:12:42
+ * @LastEditTime: 2023-05-24 14:16:04
  */
 import { TooltipProps } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
+import { CommonType } from 'cs-ui/types';
 import { ReactNode } from 'react';
 import { TableRenderProps } from 'table-render';
 import { TableContext } from 'table-render/dist/src/types';
@@ -54,7 +55,12 @@ export type TableProps<Row> = {
    * @description 保存在url上的搜索条件key, 不传则不保存搜索条件到url中，必须保证这个key是在search中是唯一的
    */
   searchKey: string;
-} & Omit<TableRenderProps, 'columns'>;
+  /**
+   * @description 最外层的class
+   */
+  wrapperClass?: string;
+} & Omit<TableRenderProps, 'columns'> &
+  Pick<CommonType, 'style'>;
 
 export type TableRef<Row = any> = TableContext<Row>;
 
